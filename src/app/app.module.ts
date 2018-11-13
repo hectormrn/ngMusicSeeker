@@ -8,7 +8,8 @@ import { HomeComponent } from './home/home.component';
 import { UiModule } from './ui/ui.module';
 import { SearchComponent } from './home/components/search/search.component';
 import { MixPreviewComponent } from './home/components/mix-preview/mix-preview.component';
-import { MediaComponent } from './shared/components/media/media.component';
+import { GridModule } from './grid/grid.module';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,14 @@ import { MediaComponent } from './shared/components/media/media.component';
     LoginComponent,
     HomeComponent,
     SearchComponent,
-    MixPreviewComponent,
-    MediaComponent
+    MixPreviewComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    UiModule
+    UiModule,
+    GridModule,
+    NgxLoadingModule.forRoot({})
   ],
   providers: [],
   bootstrap: [AppComponent]

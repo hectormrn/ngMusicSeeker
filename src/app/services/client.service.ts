@@ -119,10 +119,10 @@ export class ClientService {
   searchMixed (keyword, l = 10, type = null) {
     let proms = []
     let promiseMap = {
-        tracks: this.searchTracks,
-        artists: this.searchArtists,
-        albums: this.searchAlbums,
-        playlists: this.searchPlaylists,
+        track: this.searchTracks,
+        artist: this.searchArtists,
+        album: this.searchAlbums,
+        playlist: this.searchPlaylists,
     };
 
     type ?
@@ -136,7 +136,7 @@ export class ClientService {
     return Promise.all(proms).then( resp => {
         return resp;
     }, error => {
-        //this.httpErrorHandler.httpCode(error, this.exit);
+        this.httpErrorHandler.httpCode(error, this.exit);
     })
   }
 

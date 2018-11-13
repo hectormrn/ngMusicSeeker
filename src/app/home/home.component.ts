@@ -8,9 +8,10 @@ import { ClientService } from "../services/client.service";
 })
 export class HomeComponent {
 
-  constructor(private api: ClientService) { }
   keyword = null;
   mixed:any = []
+
+  constructor(private api: ClientService) { }
 
   onSearch(keyword: string) {
     this.keyword = keyword

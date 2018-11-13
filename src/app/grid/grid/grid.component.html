@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row grid-row">
+    <app-media class="media col-6 col-sm-4 row justify-content-center" 
+      *ngFor="let item of data" 
+      insideGrid=false 
+      [data]=item 
+      style="text-align:center"
+    >
+    </app-media>
+  </div>
+</div>

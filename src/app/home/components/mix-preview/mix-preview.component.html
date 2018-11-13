@@ -2,8 +2,8 @@
   <div class="row border Mix-body" >
     <div class="col-md-12">
         <label class="font-weight-bold">Title</label>
-        <a href="#" class="Mix-body-link">Ver todos</a>
+        <a [routerLink]="['/grid', mixType, keyword]" class="Mix-body-link">Ver todos</a>
     </div>
-    <app-media *ngFor="let item of data" [insideGrid]=false [data]=item></app-media>
+    <app-media class="media col-sm-6" *ngFor="let item of data" [insideGrid]=false [data]=item></app-media>
   </div>
 </div>

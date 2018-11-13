@@ -9,11 +9,14 @@ export class MixPreviewComponent implements OnInit {
 
   @Input() title:string;
   @Input() data:any;
+  @Input() keyword:string;
+  mixType:string;
 
   constructor() {}
 
   ngOnInit() {
-    console.log(this.data)
+    console.log("Mix preview data: ",this.data)
+    this.mixType = this.data.length > 0 ? this.data[0].type ? this.data[0].type: "": ""
   }
 
 }

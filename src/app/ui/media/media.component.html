@@ -1,0 +1,11 @@
+<div [className]="insideGrid ? '':'d-flex justify-content-center'" style="margin-bottom:5px">
+  <img [className]="data.type == 'artist' ? 'ml-3 rounded-circle': 'ml-3'" 
+    width="80px" 
+    height="80px" 
+    [src]="urlThumbnail"
+  />
+  <div class="media-body" [ngStyle]=setStyles()>
+    <h6 class="mt-0 mb-1 font-weight-bold">{{data.name}}</h6>
+        {{getMediaDescription()}}
+  </div>
+</div>

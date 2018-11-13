@@ -1,2 +1,2 @@
 <app-search (search)="onSearch($event)"></app-search>
-<app-mix-preview *ngFor="let item of mixed" [data]=item ></app-mix-preview>
+<app-mix-preview *ngFor="let item of mixed" [data]=item [keyword]="keyword"></app-mix-preview>

@@ -9,11 +9,12 @@ export class MediaComponent implements OnInit {
 
   @Input() insideGrid:boolean;
   @Input() data:any;
+  urlThumbnail:string;
 
   constructor() { }
 
   ngOnInit() {
-    console.log("insideGrid: ", this.insideGrid)
+    this.getMediaThumbnail();
   }
 
   setStyles = () => {
@@ -31,19 +32,30 @@ export class MediaComponent implements OnInit {
     return clssName;
   }
 
-  getMediaThumbnail = (data) => {
+  getMediaDescription = () => {
+    switch(this.data.type){
+        case 'album':
+            return this.data.artists[0].name
+        case 'playlist':
+            return `Total tracks ${this.data.tracks.total}`
+        case 'track':
+            return this.data.artists[0].name
+    }
+  }
+
+  getMediaThumbnail = () => {
       let img = "";
-      switch (data.type) {
+      switch (this.data.type) {
           case 'track':
-              img = data.album.images[1].url;
+              img = this.data.album.images[1].url;
               break;
           case 'artist':
           case 'playlist':
           case 'album':
-            img = data.images.length > 0 ? data.images[1] ? data.images[1].url
-                      : data.images[0] ? data.images[0].url : "../../images/404.svg": "../../images/404.svg";
+            img = this.data.images.length > 0 ? this.data.images[1] ? this.data.images[1].url
+                      : this.data.images[0] ? this.data.images[0].url : "../../images/404.svg": "../../images/404.svg";
       }
-      return img;
+      this.urlThumbnail = img;
   }
 
 }
