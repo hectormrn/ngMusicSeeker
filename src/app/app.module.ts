@@ -6,12 +6,18 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { UiModule } from './ui/ui.module';
+import { SearchComponent } from './home/components/search/search.component';
+import { MixPreviewComponent } from './home/components/mix-preview/mix-preview.component';
+import { MediaComponent } from './shared/components/media/media.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    SearchComponent,
+    MixPreviewComponent,
+    MediaComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,9 @@
+<div class="container Mix" >
+  <div class="row border Mix-body" >
+    <div class="col-md-12">
+        <label class="font-weight-bold">Title</label>
+        <a href="#" class="Mix-body-link">Ver todos</a>
+    </div>
+    <app-media *ngFor="let item of data" [insideGrid]=false [data]=item></app-media>
+  </div>
+</div>

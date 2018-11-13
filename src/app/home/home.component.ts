@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ClientService } from "../services/client.service";
 
 @Component({
@@ -6,12 +6,27 @@ import { ClientService } from "../services/client.service";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
-  constructor(private client: ClientService) { }
+  constructor(private api: ClientService) { }
+  keyword = null;
+  mixed:any = []
 
-  ngOnInit() {
-    
+  onSearch(keyword: string) {
+    this.keyword = keyword
+    this.searchMixAll()
+  }
+  
+  searchMixAll() {
+    if (this.keyword.length == 0) {
+      this.mixed = [];
+      return;
+    }
+    this.api.searchMixed(this.keyword, 4)
+    .then( (data) => {
+      console.log("Mixed data: ", data); 
+      this.mixed = data
+    });
   }
 
 }

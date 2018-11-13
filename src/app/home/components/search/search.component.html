@@ -1,0 +1,20 @@
+<div>
+    <div class="input-group mb-3">
+        <input 
+            type="text" 
+            class="form-control"
+            autoFocus
+            #box 
+            (keyup.enter)="doSearch(box.value)"
+        />
+        <div class="input-group-append">
+            <button 
+                (click)="doSearch(box.value)" 
+                class="btn"
+                style="background-color:'#1db954'; color:'#FEFEFE'" 
+                type="button">
+                Search
+            </button>
+        </div>
+    </div>
+</div>
