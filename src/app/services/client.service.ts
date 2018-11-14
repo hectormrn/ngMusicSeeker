@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
 import SpotifyWebApi from "spotify-web-api-js";
-import { HttpExceptionHandlerService } from './http-exception-handler.service'
+import { HttpExceptionHandlerService } from './http-exception-handler.service';
+import { LoadingService } from '../services/loading.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
   private api:any = null
+  public loading:boolean;
 
-  constructor(private httpErrorHandler: HttpExceptionHandlerService) { 
+  constructor(
+      private httpErrorHandler: HttpExceptionHandlerService,
+      private loadingService:LoadingService
+      ) 
+    { 
     this.api = new SpotifyWebApi()
     this.setUp()
+    this.loadingService.loading$.subscribe(loading => {   
+        this.loading = loading;
+    });
     console.log("--Cuantas veces me llaman? --")
   }
 
@@ -56,7 +65,9 @@ export class ClientService {
     })
   }
 
-
+  loadingUi(doLoadig:boolean) {
+    this.loadingService.updateLoading(doLoadig)
+  }
 
   searchTracks(trackName, l = 10) { 
       return this.api.searchTracks(trackName, {limit: l})
@@ -117,6 +128,7 @@ export class ClientService {
 
   
   searchMixed (keyword, l = 10, type = null) {
+    this.loadingUi(true)
     let proms = []
     let promiseMap = {
         track: this.searchTracks,
@@ -134,6 +146,7 @@ export class ClientService {
     ;
     
     return Promise.all(proms).then( resp => {
+        this.loadingUi(false)
         return resp;
     }, error => {
         this.httpErrorHandler.httpCode(error, this.exit);

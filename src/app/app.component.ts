@@ -1,29 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoadingService } from './services/loading.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public loading:boolean;
+  private subscription: Subscription;
   title = 'ngMusicSeeker';
 
-  constructor(private sloading:LoadingService){
-    this.sloading.loading$.subscribe(loading => {
-      console.log("loading? ", loading);      
-      this.loading = loading;
+  constructor(private loadingService:LoadingService){
+    this.subscription = this.loadingService.loading$.subscribe(loading => {
+      setTimeout(()=>{
+        this.loading = loading;
+      }, 0)
     });
   }
 
-  ngOnInit() {
-    //this.sloading.updateLoading(true);
-  }
-
   ngOnDestroy() {
-    console.log("destruyendo el home-component");
-    
+    this.subscription.unsubscribe()
   }
 
 }

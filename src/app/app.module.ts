@@ -10,6 +10,7 @@ import { SearchComponent } from './home/components/search/search.component';
 import { MixPreviewComponent } from './home/components/mix-preview/mix-preview.component';
 import { GridModule } from './grid/grid.module';
 import { NgxLoadingModule } from 'ngx-loading';
+import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { NgxLoadingModule } from 'ngx-loading';
     AppRoutingModule,
     UiModule,
     GridModule,
+    DirectivesModule,
     NgxLoadingModule.forRoot({})
   ],
   providers: [],
