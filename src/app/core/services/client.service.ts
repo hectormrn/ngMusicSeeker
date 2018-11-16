@@ -153,5 +153,13 @@ export class ClientService {
     })
   }
 
+    getMe () {
+        return this.api.getMe().then(resp => {
+            return resp;
+        }, error => {
+            this.httpErrorHandler.httpCode(error, this.exit);
+        })
+    }
+
 }
 

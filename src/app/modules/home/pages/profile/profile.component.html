@@ -1,0 +1,14 @@
+<section class="main" style="margin-top:0px">
+  <div class="Profile-banner"></div>
+  <img *ngIf="loaded" class="Profile-avatar" [src]="this.profile.images[0].url" />
+  <div *ngIf="loaded" class="Profile-info container">
+      <div class="jumbotron">
+          <h1 class="display-4" [innerHtml]="this.profile.display_name"></h1>
+          <hr class="my-4" />
+          <button type="button" class="btn btn-default">
+              Seguidores 
+              <span class="badge badge-light" [innerHtml]="this.profile.followers.total"></span>
+          </button>
+      </div>
+  </div>
+</section>

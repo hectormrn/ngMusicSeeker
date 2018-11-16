@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GridComponent } from './grid/grid.component';
-import { UiModule } from '../ui/ui.module';
-import { DirectivesModule } from '../directives/directives.module';
+import { SharedModule } from "../../shared";
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    UiModule,
+    SharedModule,
     DirectivesModule
   ],
   declarations: [GridComponent]

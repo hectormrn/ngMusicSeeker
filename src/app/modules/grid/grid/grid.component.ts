@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ClientService } from '../../services/client.service';
+import { ClientService } from '../../../core/services/client.service';
 
 @Component({
   selector: 'app-grid',
