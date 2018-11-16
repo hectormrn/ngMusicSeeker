@@ -1,0 +1,14 @@
+<section class="main ">
+      <div *ngIf="Object.keys(this.playing).length > 0" class="jumbotron text-center">
+          <img src={{getMediaThumbnail(this.playing)}} width="350px" height="350"/> 
+          <div class="container text-center" >
+              <h2 style="padding-top: 15px">{{this.playing.name}}</h2>
+              <p class="badge badge-secondary" style="font-size: 18px">
+                  Album: {{this.playing.album.name}}
+              </p><br />
+              <p class="badge badge-success" style="font-size: 18px">
+                  By: {{this.playing.artists[0].name}}
+              </p>
+          </div>      
+      </div>
+  </section>

@@ -1,0 +1,32 @@
+<div class="row MediaSummary">
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <img *ngIf="data" src={{getMediaThumbnail()}} class="rounded float-left" width="200px" height="200px" />
+    </div>
+    <div class="col-lg-9 col-md-8 col-sm-6">
+    <div *ngIf="data" [ngSwitch]="data?.type">
+        <ng-template [ngSwitchCase]="'artist'">
+            <div>
+                <label>Artista</label>
+                <h3>{{this.data.name}}</h3>
+                <p>Seguidores {{this.data.followers.total}}</p>
+            </div>
+        </ng-template>
+        <ng-template [ngSwitchCase]="'playlist'">
+            <div>
+                <label>Playlist</label>
+                <h3>{{this.data.name}}</h3>
+                <p>Created by {{this.data.owner.display_name}} - {{this.data.tracks.total}} songs</p>
+                <p>Seguidores {{this.data.followers.total}}</p>
+            </div>
+        </ng-template>
+        <ng-template ngSwitchDefault>
+            <div>
+                <label>Album</label>
+                <h3>{{this.data.name}}</h3>
+                <p>By {{this.data.artists[0].name}}</p>
+                <p>{{this.data.release_date}}</p>
+            </div>
+        </ng-template>
+        </div>
+    </div>
+</div>

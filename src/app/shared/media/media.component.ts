@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-media',
@@ -11,10 +12,18 @@ export class MediaComponent implements OnInit {
   @Input() data:any;
   urlThumbnail:string;
 
-  constructor() { }
+  constructor(
+    private router:Router
+    ) {}
 
   ngOnInit() {
     this.getMediaThumbnail();
+  }
+
+  goViewDetail = () => {
+    if (this.data.type == "track") return;
+    let _id = this.data.id;
+    this.router.navigate(['/detail'], { queryParams: { type: this.data.type, id: _id } });
   }
 
   setStyles = () => {

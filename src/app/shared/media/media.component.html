@@ -1,5 +1,8 @@
-<div [className]="insideGrid ? '':'d-flex justify-content-center'" style="margin-bottom:5px">
-  <img [className]="data.type == 'artist' ? 'ml-3 rounded-circle': 'ml-3'" 
+<div [className]="insideGrid ? '':'d-flex justify-content-center'" 
+    style="margin-bottom:5px"
+    (click)="goViewDetail()"
+    >
+  <img class="ml-3" 
     width="80px" 
     height="80px" 
     [src]="urlThumbnail"

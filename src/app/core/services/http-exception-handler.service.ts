@@ -23,4 +23,10 @@ export class HttpExceptionHandlerService {
     location.href = "http://localhost:4200/login";
   }
 
+  noContent(err, callback = undefined) {
+    console.log('Error ', err);
+    alert(`SpotifyErr - ${err.error.message || this.msg}`);
+    typeof callback == "function" ? callback(): this.redirectToHome();
+  }
+
 }

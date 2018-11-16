@@ -1,0 +1,8 @@
+<div class="row" style="margin-top: 15px">
+    <table class="table table-hover">
+        <thead><tr><th>#</th><th>Title</th><th>🕒</th></tr></thead>
+        <tbody *ngIf="tracks">
+            <app-track-item *ngFor="let item of items" name="title" duration="12:00"></app-track-item>
+        </tbody>
+    </table>
+</div>

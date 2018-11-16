@@ -7,151 +7,161 @@ import { LoadingService } from '../services/loading.service';
   providedIn: 'root'
 })
 export class ClientService {
-  private api:any = null
-  public loading:boolean;
+    private api:any = null
+    public loading:boolean;
 
-  constructor(
-      private httpErrorHandler: HttpExceptionHandlerService,
-      private loadingService:LoadingService
-      ) 
-    { 
-    this.api = new SpotifyWebApi()
-    this.setUp()
-    this.loadingService.loading$.subscribe(loading => {   
-        this.loading = loading;
-    });
-    console.log("--Cuantas veces me llaman? --")
-  }
-
-  setUp () {
-    const token = this.getToken()
-    token ? this.api.setAccessToken(token): console.error("--There's no api-token--")
-  }
-
-  getSPToken() {
-    return this.api.getAccessToken()
-  } 
-
-  exit = () => {
-      this.api.setAccessToken(null);
-      localStorage.removeItem('sptoken')
-      location.href = "http://localhost:4200/login";
-  }
-
-  getHashParams() {
-    var hashParams = {};
-    var e, r = /([^&;=]+)=?([^&;]*)/g,
-        q = window.location.hash.substring(1);
-    e = r.exec(q)
-    while (e) {
-       hashParams[e[1]] = decodeURIComponent(e[2]);
-       e = r.exec(q);
+    constructor(
+        private httpErrorHandler: HttpExceptionHandlerService,
+        private loadingService:LoadingService
+    ){ 
+        this.api = new SpotifyWebApi()
+        this.setUp()
+        this.loadingService.loading$.subscribe(loading => {   
+            this.loading = loading;
+        });
+        console.log("--Cuantas veces me llaman? --")
     }
-    return hashParams;
-  }
 
-  getToken() {
-    let token = localStorage.getItem('sptoken'); 
-    token = token ? token: this.getHashParams()['access_token'] ? this.getHashParams()['access_token']: undefined;
-    token ? localStorage.setItem('sptoken', token): localStorage.removeItem('sptoken'); 
-    return token;
-  }
+    setUp () {
+        const token = this.getToken()
+        token ? this.api.setAccessToken(token): console.error("--There's no api-token--")
+    }
 
-  getInfo() {
-    return this.api.getMe().then(resp => {
-      return resp
-    }, err => {
-      console.log(err);
-    })
-  }
+    getSPToken() {
+        return this.api.getAccessToken()
+    } 
 
-  loadingUi(doLoadig:boolean) {
-    this.loadingService.updateLoading(doLoadig)
-  }
+    exit = () => {
+        this.api.setAccessToken(null);
+        localStorage.removeItem('sptoken')
+        location.href = "http://localhost:4200/login";
+    }
 
-  searchTracks(trackName, l = 10) { 
-      return this.api.searchTracks(trackName, {limit: l})
-      .then( (data) => {
-          return data.tracks.items;
-      }, (error) => {
-          this.httpErrorHandler.httpCode(error, this.exit);
-      })
-  }
+    getHashParams() {
+        var hashParams = {};
+        var e, r = /([^&;=]+)=?([^&;]*)/g,
+            q = window.location.hash.substring(1);
+        e = r.exec(q)
+        while (e) {
+            hashParams[e[1]] = decodeURIComponent(e[2]);
+            e = r.exec(q);
+        }
+        return hashParams;
+    }
 
-  getArtistTopTracks (id) {
-      return this.api.getArtistTopTracks(id, 'MX')
-      .then( (resp) => {
-          return resp.tracks;
-      }, error => {
-          this.httpErrorHandler.httpCode(error, this.exit);
-      })
-  }
+    getToken() {
+        let token = localStorage.getItem('sptoken'); 
+        token = token ? token: this.getHashParams()['access_token'] ? this.getHashParams()['access_token']: undefined;
+        token ? localStorage.setItem('sptoken', token): localStorage.removeItem('sptoken'); 
+        return token;
+    }
 
-  searchArtists (artistName, l = 10) {
-      return this.api.searchArtists(artistName, {limit: l})
-      .then( (data) => {
-          return data.artists.items;
-      }, (error) => {})
-  }
+    getInfo() {
+        return this.api.getMe().then(resp => {
+            return resp
+        }, err => {
+            console.log(err);
+        })
+    }
 
-  getArtistById (id) {
-      return this.api.getArtist(id)
-      .then( (resp) => {
-          return resp;
-      }, error => {
-          this.httpErrorHandler.httpCode(error, this.exit);
-      })
-  }
+    loadingUi(doLoadig:boolean) {
+        this.loadingService.updateLoading(doLoadig)
+    }
 
-  searchAlbums (albumName, l = 10) {
-      return this.api.searchAlbums(albumName, {limit: l})
-      .then( (data) => {
-          return data.albums.items;
-      }, (error) => {})
-  }
+    searchTracks(trackName, l = 10) { 
+        return this.api.searchTracks(trackName, {limit: l})
+        .then( (data) => {
+            return data.tracks.items;
+        }, (error) => {
+            this.httpErrorHandler.httpCode(error, this.exit);
+        })
+    }
 
-  getAlbumById (id) {
-      return this.api.getAlbum(id)
-      .then( (resp) => {
-          return resp;
-      }, error => {
-          this.httpErrorHandler.httpCode(error, this.exit);
-      })
-  }
+    getArtistTopTracks (id) {
+        return this.api.getArtistTopTracks(id, 'MX')
+        .then( (resp) => {
+            return resp.tracks;
+        }, error => {
+            this.httpErrorHandler.httpCode(error, this.exit);
+        })
+    }
 
-  searchPlaylists (playlistName, l = 10) {
-      return this.api.searchPlaylists(playlistName, {limit: l})
-      .then( (data) => {
-          return data.playlists.items;
-      }, (error) => {})
-  }
+    searchArtists (artistName, l = 10) {
+        return this.api.searchArtists(artistName, {limit: l})
+        .then( (data) => {
+            return data.artists.items;
+        }, (error) => {})
+    }
+
+    getArtistById (id) {
+        return this.api.getArtist(id)
+        .then( (resp) => {
+            this.loadingUi(false)
+            return resp;
+        }, error => {
+            this.httpErrorHandler.httpCode(error, this.exit);
+        })
+    }
+
+    searchAlbums (albumName, l = 10) {
+        return this.api.searchAlbums(albumName, {limit: l})
+        .then( (data) => {
+            return data.albums.items;
+        }, (error) => {})
+    }
+
+    getAlbumById (id) {
+        return this.api.getAlbum(id)
+        .then( (resp) => {
+            this.loadingUi(false)
+            return resp;
+        }, error => {
+            this.httpErrorHandler.httpCode(error, this.exit);
+        })
+    }
+
+    getPlaylist (id) {
+        return this.api.getPlaylist(id).then( resp => {
+            this.loadingUi(false)
+            return resp
+        }, error => {
+            this.httpErrorHandler.httpCode(error, this.exit);
+        })
+    }
+
+    searchPlaylists (playlistName, l = 10) {
+        return this.api.searchPlaylists(playlistName, {limit: l})
+        .then( (data) => {
+            return data.playlists.items;
+        }, (error) => {})
+    }
 
   
-  searchMixed (keyword, l = 10, type = null) {
-    this.loadingUi(true)
-    let proms = []
-    let promiseMap = {
-        track: this.searchTracks,
-        artist: this.searchArtists,
-        album: this.searchAlbums,
-        playlist: this.searchPlaylists,
-    };
+    searchMixed (keyword, l = 10, type = null) {
+        this.loadingUi(true)
+        let proms = []
+        let promiseMap = {
+            track: this.searchTracks,
+            artist: this.searchArtists,
+            album: this.searchAlbums,
+            playlist: this.searchPlaylists,
+        };
 
-    type ?
-        promiseMap.hasOwnProperty(type) && proms.push( promiseMap[type].call(this, keyword, l) )
-    :
-        Object.keys(promiseMap).forEach(k => {
-            proms.push(promiseMap[k].call(this, keyword, l))
-        });
-    ;
-    
-    return Promise.all(proms).then( resp => {
-        this.loadingUi(false)
-        return resp;
-    }, error => {
-        this.httpErrorHandler.httpCode(error, this.exit);
-    })
-  }
+        type ?
+            promiseMap.hasOwnProperty(type) && proms.push( promiseMap[type].call(this, keyword, l) )
+        :
+            Object.keys(promiseMap).forEach(k => {
+                proms.push(promiseMap[k].call(this, keyword, l))
+            });
+        ;
+
+        return Promise.all(proms).then( resp => {
+            this.loadingUi(false)
+            return resp;
+        }, error => {
+            this.httpErrorHandler.httpCode(error, this.exit);
+        })
+    }
 
     getMe () {
         return this.api.getMe().then(resp => {
@@ -161,5 +171,28 @@ export class ClientService {
         })
     }
 
+    getNowPlaying () {
+        return this.api.getMyCurrentPlayingTrack().then(resp => {
+            return resp.item ? resp.item :
+                this.httpErrorHandler.noContent({error: {status: 204, message: 'Content not found'}});
+        }, error => {
+            this.httpErrorHandler.httpCode(error, this.exit);
+        })
+    }
+
+    getSingleById(type:string, id:string) {
+        console.log(`Obteniendo ${type} con el id - ${id}`);
+        this.loadingUi(true)
+        switch(type) {
+            case 'album':
+                return this.getAlbumById(id)
+            case 'playlist':
+                return this.getPlaylist(id)
+            case 'artist':
+                return this.getArtistById(id)
+            default:
+                console.log(`missing handler for ${type}`);               
+        }
+    }
 }
 
