@@ -18,7 +18,6 @@ export class ProfileComponent implements OnInit {
     this.api.getMe().then(resp => {
       this.profile = resp;
       this.loaded = true;
-      console.log(this.profile)
   })
   }
 
